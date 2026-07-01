@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Fuse — Say it. Fuse it.",
   description:
-    "Paste a URL, extract page details, and generate Meta and Google ad copy.",
+    "Paste a URL, extract page details, and generate videos, images, music, and ad copy with AI.",
   appleWebApp: {
     capable: true,
     title: "Fuse",

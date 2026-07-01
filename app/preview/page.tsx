@@ -15,7 +15,12 @@ function PreviewContent({ initial }: { initial: PageDetails }) {
   const router = useRouter();
   const [details, setDetails] = useState(initial);
 
-  function handleContinue() {
+  function handleContinueStudio() {
+    savePageDetails(details);
+    router.push("/studio");
+  }
+
+  function handleContinueAds() {
     savePageDetails(details);
     router.push("/ads");
   }
@@ -26,13 +31,20 @@ function PreviewContent({ initial }: { initial: PageDetails }) {
         <div className="mb-6">
           <h1 className="text-xl font-semibold sm:text-2xl">Review extracted details</h1>
           <p className="mt-1 text-sm text-zinc-500">
-            Edit anything before we generate your ad copy.
+            Edit anything before generating videos, images, music, or ad copy.
           </p>
         </div>
         <PageDetailsCard details={details} onChange={setDetails} />
-        <div className="mt-8">
-          <Button onClick={handleContinue} className="w-full sm:ml-auto sm:w-auto">
-            Create ads
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-end">
+          <Button
+            variant="secondary"
+            onClick={handleContinueAds}
+            className="w-full sm:w-auto"
+          >
+            Ad copy only
+          </Button>
+          <Button onClick={handleContinueStudio} className="w-full sm:w-auto">
+            Create videos &amp; images
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>

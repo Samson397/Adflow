@@ -54,7 +54,7 @@ export function UrlInputForm() {
         </div>
         <h1 className="text-2xl font-semibold tracking-tight">Paste your URL</h1>
         <p className="text-sm text-zinc-500 dark:text-zinc-400">
-          We&apos;ll extract your page details and help you create ads for Meta and Google.
+          We&apos;ll extract your page details and help you create videos, images, music, and ads.
         </p>
       </div>
 
