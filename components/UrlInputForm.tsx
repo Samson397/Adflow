@@ -47,7 +47,7 @@ export function UrlInputForm() {
   }
 
   return (
-    <Card className="mx-auto w-full max-w-2xl">
+    <Card className="mx-auto w-full max-w-2xl p-4 sm:p-6">
       <div className="mb-6 space-y-2 text-center">
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-600 dark:bg-blue-950 dark:text-blue-400">
           <Link2 className="h-6 w-6" />

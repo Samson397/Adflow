@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { SiteHeader } from "@/components/SiteHeader";
 import { useRouter } from "next/navigation";
 import { Loader2, ArrowRight } from "lucide-react";
 import {
@@ -75,7 +75,7 @@ function AdsContent({ initialSelection }: { initialSelection: PlatformSelection 
   }
 
   return (
-    <section className="mx-auto w-full max-w-3xl flex-1 px-6 py-10">
+    <section className="mx-auto w-full max-w-3xl flex-1 px-4 py-8 sm:px-6 sm:py-10">
       <Card>
         <div className="mb-6">
           <h1 className="text-2xl font-semibold">Choose platforms & formats</h1>
@@ -89,8 +89,8 @@ function AdsContent({ initialSelection }: { initialSelection: PlatformSelection 
             {error}
           </p>
         )}
-        <div className="mt-8 flex justify-end">
-          <Button onClick={handleGenerate} disabled={loading}>
+        <div className="mt-8">
+          <Button onClick={handleGenerate} disabled={loading} className="w-full sm:ml-auto sm:w-auto">
             {loading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -134,14 +134,7 @@ export default function AdsPage() {
 
   return (
     <main className="flex flex-1 flex-col">
-      <header className="border-b border-zinc-200 px-6 py-4 dark:border-zinc-800">
-        <div className="mx-auto flex max-w-5xl items-center justify-between">
-          <Link href="/preview" className="text-lg font-semibold">
-            Fuse
-          </Link>
-          <span className="text-sm text-zinc-500">Step 2 · Choose platforms</span>
-        </div>
-      </header>
+      <SiteHeader step="Step 2 · Choose platforms" backHref="/preview" />
       <AdsContent initialSelection={initialSelection} />
     </main>
   );

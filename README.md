@@ -47,7 +47,28 @@ OPENAI_MODEL=gpt-4o-mini
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000) on your computer.
+
+## Use on mobile (deploy to the web)
+
+`localhost` only works on the machine running the dev server. To use **Fuse on your phone**, deploy it to a public URL.
+
+### Deploy with Vercel (recommended, free)
+
+1. Push this repo to GitHub (e.g. `github.com/YOUR_USER/Fuse`)
+2. Go to [vercel.com/new](https://vercel.com/new) and import the repo
+3. Add environment variables in Vercel → **Settings → Environment Variables**:
+   - `OPENAI_API_KEY` = your OpenAI key
+   - `OPENAI_MODEL` = `gpt-4o-mini` (optional)
+4. Click **Deploy**
+5. Open the `https://your-app.vercel.app` URL on your phone
+
+No code changes needed — Vercel detects Next.js automatically.
+
+### After deploy
+
+- Bookmark the Vercel URL on your home screen (works like an app on iOS/Android)
+- The UI is mobile-friendly (responsive layout, safe-area padding)
 
 ## User flow
 

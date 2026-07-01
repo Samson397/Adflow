@@ -58,8 +58,8 @@ export function ExportPanel({ variants }: ExportPanelProps) {
   }
 
   return (
-    <div className="flex flex-wrap gap-3">
-      <Button type="button" variant="secondary" onClick={copyAll}>
+    <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+      <Button type="button" variant="secondary" onClick={copyAll} className="w-full sm:w-auto">
         {copied ? (
           <>
             <Check className="mr-2 h-4 w-4" />
@@ -72,7 +72,7 @@ export function ExportPanel({ variants }: ExportPanelProps) {
           </>
         )}
       </Button>
-      <Button type="button" onClick={downloadJson}>
+      <Button type="button" onClick={downloadJson} className="w-full sm:w-auto">
         <Download className="mr-2 h-4 w-4" />
         Download bundle
       </Button>

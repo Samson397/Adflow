@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { PageDetailsCard } from "@/components/PageDetailsCard";
+import { SiteHeader } from "@/components/SiteHeader";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useClientMounted } from "@/lib/hooks/use-client-mounted";
@@ -21,17 +21,17 @@ function PreviewContent({ initial }: { initial: PageDetails }) {
   }
 
   return (
-    <section className="mx-auto w-full max-w-5xl flex-1 px-6 py-10">
+    <section className="mx-auto w-full max-w-5xl flex-1 px-4 py-8 sm:px-6 sm:py-10">
       <Card>
         <div className="mb-6">
-          <h1 className="text-2xl font-semibold">Review extracted details</h1>
+          <h1 className="text-xl font-semibold sm:text-2xl">Review extracted details</h1>
           <p className="mt-1 text-sm text-zinc-500">
             Edit anything before we generate your ad copy.
           </p>
         </div>
         <PageDetailsCard details={details} onChange={setDetails} />
-        <div className="mt-8 flex justify-end">
-          <Button onClick={handleContinue}>
+        <div className="mt-8">
+          <Button onClick={handleContinue} className="w-full sm:ml-auto sm:w-auto">
             Create ads
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
@@ -65,14 +65,7 @@ export default function PreviewPage() {
 
   return (
     <main className="flex flex-1 flex-col">
-      <header className="border-b border-zinc-200 px-6 py-4 dark:border-zinc-800">
-        <div className="mx-auto flex max-w-5xl items-center justify-between">
-          <Link href="/" className="text-lg font-semibold">
-            Fuse
-          </Link>
-          <span className="text-sm text-zinc-500">Step 1 · Review details</span>
-        </div>
-      </header>
+      <SiteHeader step="Step 1 · Review details" backHref="/" />
       <PreviewContent initial={stored} />
     </main>
   );

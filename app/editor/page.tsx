@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { SiteHeader } from "@/components/SiteHeader";
 import { useRouter } from "next/navigation";
 import { AdVariantEditor } from "@/components/AdVariantEditor";
 import { ExportPanel } from "@/components/ExportPanel";
@@ -35,7 +35,7 @@ function EditorContent({ initial }: { initial: AdVariant[] }) {
   };
 
   return (
-    <section className="mx-auto w-full max-w-6xl flex-1 px-6 py-10">
+    <section className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:px-6 sm:py-10">
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-semibold">Your ad variants</h1>
@@ -121,14 +121,7 @@ export default function EditorPage() {
 
   return (
     <main className="flex flex-1 flex-col">
-      <header className="border-b border-zinc-200 px-6 py-4 dark:border-zinc-800">
-        <div className="mx-auto flex max-w-6xl items-center justify-between">
-          <Link href="/ads" className="text-lg font-semibold">
-            Fuse
-          </Link>
-          <span className="text-sm text-zinc-500">Step 3 · Review & export</span>
-        </div>
-      </header>
+      <SiteHeader step="Step 3 · Review & export" backHref="/ads" />
       <EditorContent initial={stored} />
     </main>
   );
