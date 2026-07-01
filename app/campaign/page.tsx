@@ -56,7 +56,7 @@ function CampaignContent({ pageDetails: initial }: { pageDetails: PageDetails })
           <div>
             <h1 className="text-xl font-semibold sm:text-2xl">Fuse your campaign</h1>
             <p className="mt-1 text-sm text-zinc-500">
-              AI-planned image, video, music, and ad copy — adapted to this website.
+              AI reads your brief, picks Suno, Seedance, Music Video Generator, and more — then runs the plan.
             </p>
           </div>
           <Link href="/studio">
