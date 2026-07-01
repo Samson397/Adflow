@@ -70,6 +70,13 @@ No code changes needed — Vercel detects Next.js automatically.
 - Bookmark the Vercel URL on your home screen (works like an app on iOS/Android)
 - The UI is mobile-friendly (responsive layout, safe-area padding)
 
+### Troubleshooting 404
+
+If you get **NOT_FOUND** on your Vercel URL, see **[DEPLOY.md](./DEPLOY.md)**. Common causes:
+
+1. Wrong project URL (e.g. `fuse-beryl` not linked to GitHub)
+2. **Deployment Protection** enabled (blocks public access — disable for Production)
+
 ## User flow
 
 1. Paste a public URL on the homepage
