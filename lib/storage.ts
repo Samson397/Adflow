@@ -1,6 +1,6 @@
 import type { AdVariant } from "@/lib/ads/types";
 import type { PageDetails } from "@/lib/extract/types";
-import type { GenerationJob } from "@/lib/poyo/types";
+import type { GenerationJob } from "@/lib/aivideoapi/types";
 
 const PAGE_DETAILS_KEY = "fuse:pageDetails";
 const AD_VARIANTS_KEY = "fuse:adVariants";

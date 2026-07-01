@@ -6,9 +6,9 @@ Turn any product or landing page URL into AI-generated **videos, images, music**
 
 - **URL extraction** — Open Graph, Twitter cards, JSON-LD, and meta tags
 - **Preview & edit** — Review and override title, description, images, price, and CTA
-- **Creative studio** — Generate videos, images, and music via [PoYo AI](https://poyo.ai) models:
+- **Creative studio** — Generate videos, images, and music via [aivideoapi.ai](https://aivideoapi.ai):
   - **Video:** Seedance 2.0, Veo 3.1, Sora 2, Kling 3.0/2.6, HappyHorse, WAN, Grok Imagine
-  - **Image:** GPT Image 2, Nano Banana 2, Nano Banana, Seedream 5.0
+  - **Image:** GPT Image 2, Nano Banana 2, Nano Banana, Ideogram V4, Seedream 5.0
   - **Music:** Suno V5.5, Suno V5
 - **Multi-platform ads** — Generate variants for Meta (Facebook/Instagram) and Google Ads
 - **Character limits** — Live counters with platform-specific max lengths
@@ -41,10 +41,10 @@ cp .env.example .env.local
 ```env
 OPENAI_API_KEY=sk-...
 OPENAI_MODEL=gpt-4o-mini
-POYO_API_KEY=your-poyo-api-key
+AIVIDEOAPI_API_KEY=sk-your-aivideoapi-key
 ```
 
-> **OpenAI** powers ad copy generation. **PoYo** powers video, image, and music generation. Without keys, URL extraction still works; ad copy uses rule-based fallback; creative generation requires `POYO_API_KEY`.
+> **OpenAI** powers ad copy generation (optional). **aivideoapi.ai** powers video, image, and music generation via `AIVIDEOAPI_API_KEY`. Without an OpenAI key, ad copy uses rule-based fallback. Creative generation requires `AIVIDEOAPI_API_KEY`.
 
 ### 3. Run the dev server
 
@@ -65,7 +65,7 @@ Open [http://localhost:3000](http://localhost:3000) on your computer.
 3. Add environment variables in Vercel → **Settings → Environment Variables**:
    - `OPENAI_API_KEY` = your OpenAI key
    - `OPENAI_MODEL` = `gpt-4o-mini` (optional)
-   - `POYO_API_KEY` = your PoYo API key ([get one here](https://poyo.ai/dashboard/api-key))
+   - `AIVIDEOAPI_API_KEY` = your aivideoapi.ai key ([get one here](https://aivideoapi.ai/dashboard/api-keys))
 4. Click **Deploy**
 5. Open the `https://your-app.vercel.app` URL on your phone
 
@@ -87,7 +87,7 @@ If you get **NOT_FOUND** on your Vercel URL, see **[DEPLOY.md](./DEPLOY.md)**. C
 
 1. Paste a public URL on the homepage
 2. Review extracted page details on `/preview`
-3. **Create videos, images, and music** on `/studio` (PoYo AI models)
+3. **Create videos, images, and music** on `/studio` (aivideoapi.ai models)
 4. Or choose Meta/Google platforms and formats on `/ads` for ad copy only
 5. Edit generated variants and export on `/editor`
 

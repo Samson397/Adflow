@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { buildModelInput } from "@/lib/poyo/buildInput";
-import { isPoyoConfigured, submitGenerationTask } from "@/lib/poyo/client";
-import { getModelById } from "@/lib/poyo/models";
+import { resolveGeneration } from "@/lib/aivideoapi/buildInput";
+import { isAiVideoApiConfigured, submitGenerationTask } from "@/lib/aivideoapi/client";
+import { getModelById } from "@/lib/aivideoapi/models";
 
 const submitSchema = z.object({
   modelId: z.string().min(1),
@@ -12,12 +12,12 @@ const submitSchema = z.object({
 
 export async function POST(request: Request) {
   try {
-    if (!isPoyoConfigured()) {
+    if (!isAiVideoApiConfigured()) {
       return NextResponse.json(
         {
           success: false,
           error:
-            "POYO_API_KEY is not configured. Add your PoYo API key to environment variables.",
+            "AIVIDEOAPI_API_KEY is not configured. Add your aivideoapi.ai key to environment variables.",
         },
         { status: 503 },
       );
@@ -34,14 +34,14 @@ export async function POST(request: Request) {
       );
     }
 
-    const input = buildModelInput(model, prompt, imageUrl);
-    const task = await submitGenerationTask(model, input);
+    const { endpoint, apiModel, input } = resolveGeneration(model, prompt, imageUrl);
+    const taskId = await submitGenerationTask(endpoint, apiModel, input);
 
     return NextResponse.json({
       success: true,
       data: {
-        taskId: task.task_id,
-        status: task.status,
+        taskId,
+        status: "pending",
         category: model.category,
         modelId: model.id,
         modelLabel: model.label,

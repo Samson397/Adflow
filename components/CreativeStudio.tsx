@@ -13,9 +13,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { buildPromptFromPage } from "@/lib/poyo/buildInput";
-import { getModelsByCategory } from "@/lib/poyo/models";
-import type { CreativeCategory, GenerationJob, PoyoFile } from "@/lib/poyo/types";
+import { buildPromptFromPage } from "@/lib/aivideoapi/buildInput";
+import { getModelsByCategory } from "@/lib/aivideoapi/models";
+import type { CreativeCategory, GenerationJob, OutputFile } from "@/lib/aivideoapi/types";
 import type { PageDetails } from "@/lib/extract/types";
 import { loadCreativeJobs, saveCreativeJobs } from "@/lib/storage";
 
@@ -25,8 +25,8 @@ const TABS: { id: CreativeCategory; label: string; icon: typeof Film }[] = [
   { id: "music", label: "Music", icon: Music },
 ];
 
-function fileUrl(file: PoyoFile): string | undefined {
-  return file.file_url ?? file.audio_url ?? file.image_url;
+function fileUrl(file: OutputFile): string | undefined {
+  return file.url;
 }
 
 function ResultPreview({ job }: { job: GenerationJob }) {
@@ -44,7 +44,7 @@ function ResultPreview({ job }: { job: GenerationJob }) {
   if (!url) {
     return (
       <p className="text-sm text-zinc-500">
-        {job.status === "running" || job.status === "not_started"
+        {job.status === "pending" || job.status === "processing"
           ? "Generating…"
           : "No output files yet"}
       </p>
@@ -106,7 +106,7 @@ export function CreativeStudio({ pageDetails }: { pageDetails: PageDetails }) {
   }
 
   const pollJob = useCallback(async (job: GenerationJob) => {
-    const terminal = new Set(["finished", "failed"]);
+    const terminal = new Set<GenerationJob["status"]>(["completed", "failed"]);
     let current = job;
 
     while (!terminal.has(current.status)) {

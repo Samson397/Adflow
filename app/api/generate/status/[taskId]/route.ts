@@ -1,40 +1,32 @@
 import { NextResponse } from "next/server";
-import { getMediaTaskStatus, getMusicTaskStatus, isPoyoConfigured } from "@/lib/poyo/client";
-import { getModelById } from "@/lib/poyo/models";
+import { getTaskStatus, isAiVideoApiConfigured } from "@/lib/aivideoapi/client";
+import { getModelById } from "@/lib/aivideoapi/models";
+import type { CreativeCategory } from "@/lib/aivideoapi/types";
 
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ taskId: string }> },
 ) {
   try {
-    if (!isPoyoConfigured()) {
+    if (!isAiVideoApiConfigured()) {
       return NextResponse.json(
-        { success: false, error: "POYO_API_KEY is not configured" },
+        { success: false, error: "AIVIDEOAPI_API_KEY is not configured" },
         { status: 503 },
       );
     }
 
     const { taskId } = await params;
     const { searchParams } = new URL(request.url);
-    const category = searchParams.get("category");
+    const categoryParam = searchParams.get("category") as CreativeCategory | null;
     const modelId = searchParams.get("modelId");
-
     const model = modelId ? getModelById(modelId) : undefined;
-    const isMusic = category === "music" || model?.category === "music";
+    const category = categoryParam ?? model?.category ?? "video";
 
-    const task = isMusic
-      ? await getMusicTaskStatus(taskId)
-      : await getMediaTaskStatus(taskId);
+    const task = await getTaskStatus(taskId, category);
 
     return NextResponse.json({
       success: true,
-      data: {
-        taskId: task.task_id,
-        status: task.status,
-        progress: task.progress ?? null,
-        files: task.files ?? [],
-        errorMessage: task.error_message ?? null,
-      },
+      data: task,
     });
   } catch (error) {
     const message =

@@ -40,7 +40,7 @@ export default function StudioPage() {
             <div>
               <h1 className="text-xl font-semibold sm:text-2xl">Creative studio</h1>
               <p className="mt-1 text-sm text-zinc-500">
-                Generate videos, images, and music with your AI models — powered by PoYo.
+                Generate videos, images, and music with aivideoapi.ai models.
               </p>
             </div>
             <Button
