@@ -68,6 +68,12 @@ export const CREATIVE_MODELS: CreativeModel[] = [
     description: "xAI Grok Imagine text and image-to-video",
   },
   {
+    id: "music-video-generator",
+    label: "Music Video Generator",
+    category: "video",
+    description: "Lip-sync music video from audio + reference photos",
+  },
+  {
     id: "gpt-image-2",
     label: "GPT Image 2",
     category: "image",

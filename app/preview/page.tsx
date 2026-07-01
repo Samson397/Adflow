@@ -1,19 +1,27 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { PageDetailsCard } from "@/components/PageDetailsCard";
+import { PageInsightBanner } from "@/components/PageInsightBanner";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useClientMounted } from "@/lib/hooks/use-client-mounted";
+import { analyzePage } from "@/lib/intelligence/analyzePage";
 import { loadPageDetails, savePageDetails } from "@/lib/storage";
 import type { PageDetails } from "@/lib/extract/types";
 
 function PreviewContent({ initial }: { initial: PageDetails }) {
   const router = useRouter();
   const [details, setDetails] = useState(initial);
+  const intelligence = useMemo(() => analyzePage(details), [details]);
+
+  function handleContinueCampaign() {
+    savePageDetails(details);
+    router.push("/campaign");
+  }
 
   function handleContinueStudio() {
     savePageDetails(details);
@@ -34,17 +42,25 @@ function PreviewContent({ initial }: { initial: PageDetails }) {
             Edit anything before generating videos, images, music, or ad copy.
           </p>
         </div>
+        <PageInsightBanner intelligence={intelligence} />
         <PageDetailsCard details={details} onChange={setDetails} />
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-end">
           <Button
-            variant="secondary"
+            variant="ghost"
             onClick={handleContinueAds}
             className="w-full sm:w-auto"
           >
             Ad copy only
           </Button>
-          <Button onClick={handleContinueStudio} className="w-full sm:w-auto">
-            Create videos &amp; images
+          <Button
+            variant="secondary"
+            onClick={handleContinueStudio}
+            className="w-full sm:w-auto"
+          >
+            Manual studio
+          </Button>
+          <Button onClick={handleContinueCampaign} className="w-full sm:w-auto">
+            Fuse campaign
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>

@@ -86,18 +86,22 @@ If you get **NOT_FOUND** on your Vercel URL, see **[DEPLOY.md](./DEPLOY.md)**. C
 ## User flow
 
 1. Paste a public URL on the homepage
-2. Review extracted page details on `/preview`
-3. **Create videos, images, and music** on `/studio` (aivideoapi.ai models)
-4. Or choose Meta/Google platforms and formats on `/ads` for ad copy only
-5. Edit generated variants and export on `/editor`
+2. Review extracted page details on `/preview` (with site-type intelligence)
+3. **Fuse campaign** on `/campaign` — AI-planned image → video → music → ad copy (auto-generates images when the page has none)
+4. Or use **Manual studio** on `/studio` for individual generations
+5. Or choose Meta/Google platforms on `/ads` for ad copy only
+6. Edit generated variants and export on `/editor`
 
 ## API routes
 
 | Route | Method | Description |
 |-------|--------|-------------|
 | `/api/extract` | POST | Fetch and parse a URL (`{ url }`) |
+| `/api/analyze` | POST | Classify site type and image strategy |
+| `/api/plan` | POST | Build a full campaign plan |
+| `/api/credits` | GET | Query aivideoapi.ai credit balance |
 | `/api/ads/generate` | POST | Generate ad variants from page details |
-| `/api/generate/submit` | POST | Submit video/image/music generation (`{ modelId, prompt, imageUrl? }`) |
+| `/api/generate/submit` | POST | Submit video/image/music generation |
 | `/api/generate/status/[taskId]` | GET | Poll generation task status |
 
 ## Security

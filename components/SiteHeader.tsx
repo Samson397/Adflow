@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CreditsBadge } from "@/components/CreditsBadge";
 
 export function SiteHeader({
   step,
@@ -14,9 +15,15 @@ export function SiteHeader({
           Fuse
         </Link>
         {step ? (
-          <span className="text-right text-xs text-zinc-500 sm:text-sm">{step}</span>
+          <div className="flex items-center gap-2">
+            <CreditsBadge />
+            <span className="text-right text-xs text-zinc-500 sm:text-sm">{step}</span>
+          </div>
         ) : (
-          <span className="text-sm text-zinc-500">Say it. Fuse it.</span>
+          <div className="flex items-center gap-2">
+            <CreditsBadge />
+            <span className="text-sm text-zinc-500">Say it. Fuse it.</span>
+          </div>
         )}
       </div>
     </header>

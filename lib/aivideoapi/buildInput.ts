@@ -25,6 +25,8 @@ export function resolveGeneration(
   model: CreativeModel,
   prompt: string,
   imageUrl?: string,
+  audioUrl?: string,
+  instrumental = false,
 ): ResolvedGeneration {
   const hasImage = Boolean(imageUrl);
   const images = hasImage ? [imageUrl!] : undefined;
@@ -174,6 +176,25 @@ export function resolveGeneration(
         },
       };
 
+    case "music-video-generator":
+      if (!audioUrl) {
+        throw new Error("Music video requires generated audio from the music step.");
+      }
+      if (!imageUrl) {
+        throw new Error("Music video requires a reference image.");
+      }
+      return {
+        endpoint: "video",
+        apiModel: "music-video-generator",
+        input: {
+          audio_urls: [audioUrl],
+          image_urls: [imageUrl],
+          prompt,
+          aspect_ratio: "16:9",
+          resolution: "480p",
+        },
+      };
+
     case "gpt-image-2":
       return {
         endpoint: "image",
@@ -238,7 +259,7 @@ export function resolveGeneration(
         input: {
           prompt: prompt.slice(0, 500),
           custom_mode: false,
-          instrumental: false,
+          instrumental,
         },
       };
 
@@ -249,7 +270,7 @@ export function resolveGeneration(
         input: {
           prompt: prompt.slice(0, 500),
           custom_mode: false,
-          instrumental: false,
+          instrumental,
         },
       };
 

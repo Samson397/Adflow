@@ -8,6 +8,8 @@ const submitSchema = z.object({
   modelId: z.string().min(1),
   prompt: z.string().min(1).max(5000),
   imageUrl: z.string().url().optional(),
+  audioUrl: z.string().url().optional(),
+  instrumental: z.boolean().optional(),
 });
 
 export async function POST(request: Request) {
@@ -24,7 +26,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { modelId, prompt, imageUrl } = submitSchema.parse(body);
+    const { modelId, prompt, imageUrl, audioUrl, instrumental } = submitSchema.parse(body);
     const model = getModelById(modelId);
 
     if (!model) {
@@ -34,7 +36,13 @@ export async function POST(request: Request) {
       );
     }
 
-    const { endpoint, apiModel, input } = resolveGeneration(model, prompt, imageUrl);
+    const { endpoint, apiModel, input } = resolveGeneration(
+      model,
+      prompt,
+      imageUrl,
+      audioUrl,
+      instrumental,
+    );
     const taskId = await submitGenerationTask(endpoint, apiModel, input);
 
     return NextResponse.json({

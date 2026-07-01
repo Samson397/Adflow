@@ -105,8 +105,9 @@ export function PageDetailsCard({ details, onChange }: PageDetailsCardProps) {
               />
             </div>
           ) : (
-            <div className="flex aspect-video items-center justify-center bg-zinc-100 text-sm text-zinc-400 dark:bg-zinc-900">
-              No image found
+            <div className="flex aspect-video flex-col items-center justify-center gap-2 bg-zinc-100 px-4 text-center text-sm text-zinc-500 dark:bg-zinc-900">
+              <span>No image on this page</span>
+              <span className="text-xs">Fuse will generate one based on your site type</span>
             </div>
           )}
           <div className="space-y-1 p-4">

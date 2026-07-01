@@ -106,6 +106,29 @@ export async function submitGenerationTask(
   return result.data.taskId;
 }
 
+export async function getCreditsBalance(): Promise<{
+  balance: number;
+  total_purchased: number;
+  total_consumed: number;
+}> {
+  const response = await fetch(`${BASE_URL}/v1/credits`, {
+    headers: authHeaders(),
+    cache: "no-store",
+  });
+
+  const result = (await response.json()) as ApiEnvelope<{
+    balance: number;
+    total_purchased: number;
+    total_consumed: number;
+  }>;
+
+  if (!response.ok || result.code !== 200 || !result.data) {
+    throw new Error(result.error?.message ?? "Failed to fetch credits");
+  }
+
+  return result.data;
+}
+
 export async function getTaskStatus(
   taskId: string,
   category: CreativeCategory,
