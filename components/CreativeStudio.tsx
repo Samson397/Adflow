@@ -17,7 +17,7 @@ import { buildPromptFromPage } from "@/lib/aivideoapi/buildInput";
 import { getModelsByCategory } from "@/lib/aivideoapi/models";
 import type { CreativeCategory, GenerationJob, OutputFile } from "@/lib/aivideoapi/types";
 import type { PageDetails } from "@/lib/extract/types";
-import { loadCreativeJobs, saveCreativeJobs } from "@/lib/storage";
+import { loadCreativeJobs, loadStudioTab, saveCreativeJobs } from "@/lib/storage";
 
 const TABS: { id: CreativeCategory; label: string; icon: typeof Film }[] = [
   { id: "video", label: "Video", icon: Film },
@@ -88,7 +88,7 @@ function ResultPreview({ job }: { job: GenerationJob }) {
 }
 
 export function CreativeStudio({ pageDetails }: { pageDetails: PageDetails }) {
-  const [tab, setTab] = useState<CreativeCategory>("video");
+  const [tab, setTab] = useState<CreativeCategory>(() => loadStudioTab() ?? "video");
   const models = getModelsByCategory(tab);
   const [modelId, setModelId] = useState(() => getModelsByCategory("video")[0]?.id ?? "");
   const [prompt, setPrompt] = useState(() => buildPromptFromPage(pageDetails));

@@ -22,7 +22,10 @@ function CampaignContent({ pageDetails: initial }: { pageDetails: PageDetails })
     fetch("/api/plan", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ pageDetails: initial }),
+      body: JSON.stringify({
+        pageDetails: initial,
+        brief: initial.description || undefined,
+      }),
     })
       .then((r) => r.json())
       .then((result) => {

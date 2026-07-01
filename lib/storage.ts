@@ -7,6 +7,7 @@ const PAGE_DETAILS_KEY = "fuse:pageDetails";
 const AD_VARIANTS_KEY = "fuse:adVariants";
 const SELECTION_KEY = "fuse:selection";
 const CREATIVE_JOBS_KEY = "fuse:creativeJobs";
+const STUDIO_TAB_KEY = "fuse:studioTab";
 
 export interface AdSelection {
   platforms: ("meta" | "google")[];
@@ -78,9 +79,20 @@ export function loadPageDetailsOrBlank(): PageDetails {
   return loadPageDetails() ?? createBlankPageDetails();
 }
 
+export function saveStudioTab(tab: "video" | "image" | "music"): void {
+  sessionStorage.setItem(STUDIO_TAB_KEY, tab);
+}
+
+export function loadStudioTab(): "video" | "image" | "music" | null {
+  const raw = sessionStorage.getItem(STUDIO_TAB_KEY);
+  if (raw === "video" || raw === "image" || raw === "music") return raw;
+  return null;
+}
+
 export function clearFuseSession(): void {
   sessionStorage.removeItem(PAGE_DETAILS_KEY);
   sessionStorage.removeItem(AD_VARIANTS_KEY);
   sessionStorage.removeItem(SELECTION_KEY);
   sessionStorage.removeItem(CREATIVE_JOBS_KEY);
+  sessionStorage.removeItem(STUDIO_TAB_KEY);
 }
