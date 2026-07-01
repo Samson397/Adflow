@@ -1,66 +1,83 @@
-# Fuse — Vercel deploy fix
+# Fix Fuse 404 on Vercel
 
-## Your 404 on `fuse-beryl.vercel.app`
-
-That URL is **not** the project connected to GitHub. It is an empty/orphan Vercel project with **no deployment** (`x-vercel-error: NOT_FOUND`).
-
-The app **did deploy successfully** from GitHub to a different project:
-
-**https://fuse-samsons-projects-8c2b6db5.vercel.app**
-
-(GitHub → Vercel bot shows deployment `success` on commit `4e9fd5f`.)
+Your app **is built and deployed**. The problems are Vercel settings, not missing code.
 
 ---
 
-## Fix in 3 steps (Vercel Dashboard)
+## You are opening the wrong URL
 
-### 1. Turn off Deployment Protection (required for mobile/public access)
+| URL | What happens |
+|-----|----------------|
+| `https://fuse-beryl.vercel.app` | **404** — empty project, not connected to Git |
+| `https://fuse-samsons-projects-8c2b6db5.vercel.app` | **Your real app** (after step 2 below) |
 
-1. Open [vercel.com/dashboard](https://vercel.com/dashboard)
-2. Select the **Fuse** project linked to `Samson397/Adflow` (not "fuse-beryl" if that is a separate empty project)
-3. **Settings → Deployment Protection**
-4. For **Production**, disable protection or choose **“Only Preview Deployments”**
-5. Save
-
-Without this, visitors are redirected to Vercel login and the site looks broken on mobile.
-
-### 2. Use the correct domain
-
-Either use:
-
-**https://fuse-samsons-projects-8c2b6db5.vercel.app**
-
-Or assign your preferred name to the **GitHub-linked** project:
-
-1. **Settings → Domains**
-2. Add `fuse-beryl.vercel.app` to the **Adflow/Fuse** project (the one with successful deployments)
-3. Remove it from any empty duplicate project
-
-### 3. Add environment variables
-
-**Settings → Environment Variables** (Production):
-
-| Name | Value |
-|------|--------|
-| `OPENAI_API_KEY` | your OpenAI key |
-| `OPENAI_MODEL` | `gpt-4o-mini` |
-
-Then **Deployments → Redeploy** latest `main`.
+Naming the project **fuse** in Git is correct. Vercel auto-assigns a URL like `fuse-samsons-projects-….vercel.app`, not always `fuse-beryl`.
 
 ---
 
-## Verify it works
+## Step 1 — Open the correct Vercel project
 
-Open the production URL on your phone. You should see:
-
-- **Fuse** header
-- **“Paste your URL”** input
-- **Analyze** button
-
-Not “NOT_FOUND” and not a Vercel login page.
+1. Go to [vercel.com/dashboard](https://vercel.com/dashboard)
+2. Open the project that shows **Git: Samson397/Adflow** (named **fuse**)
+3. Do **not** use a separate empty project that only has `fuse-beryl`
 
 ---
 
-## Optional: delete the empty project
+## Step 2 — Turn OFF Deployment Protection (required for phone)
 
-If `fuse-beryl` is a duplicate project with no Git link, delete it in Vercel to avoid confusion.
+Your app currently redirects everyone to a **Vercel login page**. On mobile this often looks like a broken site or 404.
+
+1. In the **fuse** project → **Settings**
+2. **Deployment Protection**
+3. For **Production**:
+   - Turn **OFF** “Vercel Authentication”, or
+   - Set protection to **“Only Preview Deployments”**
+4. **Save**
+
+---
+
+## Step 3 — Redeploy
+
+1. **Deployments** tab
+2. Click **⋯** on the latest `main` deployment
+3. **Redeploy**
+
+---
+
+## Step 4 — Open this URL on your phone
+
+```
+https://fuse-samsons-projects-8c2b6db5.vercel.app
+```
+
+You should see **Fuse** and **“Paste your URL”**.
+
+---
+
+## Step 5 — (Optional) Use `fuse-beryl.vercel.app`
+
+Only after step 2 works:
+
+1. Delete the **empty** `fuse-beryl` project if it exists (the one with no Git repo)
+2. In the **Git-linked fuse** project → **Settings → Domains**
+3. **Add** `fuse-beryl.vercel.app`
+
+---
+
+## Step 6 — Add OpenAI key
+
+**Settings → Environment Variables** → Production:
+
+- `OPENAI_API_KEY` = your key
+- `OPENAI_MODEL` = `gpt-4o-mini`
+
+Redeploy again.
+
+---
+
+## Still stuck?
+
+In Vercel → **fuse** project → **Deployments** → latest deployment:
+
+- Status must be **Ready** (green)
+- If **Build Failed**, open the build log and send the error text.
