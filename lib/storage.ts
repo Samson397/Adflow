@@ -1,9 +1,9 @@
 import type { AdVariant } from "@/lib/ads/types";
 import type { PageDetails } from "@/lib/extract/types";
 
-const PAGE_DETAILS_KEY = "adflow:pageDetails";
-const AD_VARIANTS_KEY = "adflow:adVariants";
-const SELECTION_KEY = "adflow:selection";
+const PAGE_DETAILS_KEY = "fuse:pageDetails";
+const AD_VARIANTS_KEY = "fuse:adVariants";
+const SELECTION_KEY = "fuse:selection";
 
 export interface AdSelection {
   platforms: ("meta" | "google")[];
@@ -57,7 +57,7 @@ export function loadAdVariants(): AdVariant[] | null {
   }
 }
 
-export function clearAdflowSession(): void {
+export function clearFuseSession(): void {
   sessionStorage.removeItem(PAGE_DETAILS_KEY);
   sessionStorage.removeItem(AD_VARIANTS_KEY);
   sessionStorage.removeItem(SELECTION_KEY);

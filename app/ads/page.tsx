@@ -137,7 +137,7 @@ export default function AdsPage() {
       <header className="border-b border-zinc-200 px-6 py-4 dark:border-zinc-800">
         <div className="mx-auto flex max-w-5xl items-center justify-between">
           <Link href="/preview" className="text-lg font-semibold">
-            Adflow
+            Fuse
           </Link>
           <span className="text-sm text-zinc-500">Step 2 · Choose platforms</span>
         </div>

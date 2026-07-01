@@ -124,7 +124,7 @@ export default function EditorPage() {
       <header className="border-b border-zinc-200 px-6 py-4 dark:border-zinc-800">
         <div className="mx-auto flex max-w-6xl items-center justify-between">
           <Link href="/ads" className="text-lg font-semibold">
-            Adflow
+            Fuse
           </Link>
           <span className="text-sm text-zinc-500">Step 3 · Review & export</span>
         </div>

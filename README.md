@@ -1,6 +1,6 @@
-# Adflow
+# Fuse
 
-Turn any product or landing page URL into editable Meta and Google ad copy.
+Turn any product or landing page URL into editable Meta and Google ad copy. **Say it. Fuse it.**
 
 ## Features
 

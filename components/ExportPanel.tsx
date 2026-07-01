@@ -52,7 +52,7 @@ export function ExportPanel({ variants }: ExportPanelProps) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `adflow-export-${Date.now()}.json`;
+    a.download = `fuse-export-${Date.now()}.json`;
     a.click();
     URL.revokeObjectURL(url);
   }

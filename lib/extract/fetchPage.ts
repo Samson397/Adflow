@@ -1,5 +1,5 @@
 const USER_AGENT =
-  "Mozilla/5.0 (compatible; AdflowBot/1.0; +https://github.com/Samson397/Adflow)";
+  "Mozilla/5.0 (compatible; FuseBot/1.0; +https://github.com/Samson397/Adflow)";
 const FETCH_TIMEOUT_MS = 10_000;
 const MAX_HTML_BYTES = 2 * 1024 * 1024;
 

@@ -68,7 +68,7 @@ export default function PreviewPage() {
       <header className="border-b border-zinc-200 px-6 py-4 dark:border-zinc-800">
         <div className="mx-auto flex max-w-5xl items-center justify-between">
           <Link href="/" className="text-lg font-semibold">
-            Adflow
+            Fuse
           </Link>
           <span className="text-sm text-zinc-500">Step 1 · Review details</span>
         </div>

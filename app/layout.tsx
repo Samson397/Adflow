@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Adflow — URL to Multi-Platform Ads",
+  title: "Fuse — Say it. Fuse it.",
   description:
     "Paste a URL, extract page details, and generate Meta and Google ad copy.",
 };
