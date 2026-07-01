@@ -10,11 +10,14 @@ import {
 } from "@/components/PlatformSelector";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { useClientMounted } from "@/lib/hooks/use-client-mounted";
 import {
   loadPageDetails,
+  loadPageDetailsOrBlank,
   loadSelection,
   saveAdVariants,
+  savePageDetails,
   saveSelection,
 } from "@/lib/storage";
 
@@ -28,12 +31,18 @@ function AdsContent({ initialSelection }: { initialSelection: PlatformSelection 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selection, setSelection] = useState(initialSelection);
+  const [brief, setBrief] = useState(() => loadPageDetailsOrBlank().description);
+  const [title, setTitle] = useState(() => loadPageDetailsOrBlank().title);
 
   async function handleGenerate() {
-    const pageDetails = loadPageDetails();
-    if (!pageDetails) {
-      router.replace("/");
-      return;
+    let pageDetails = loadPageDetailsOrBlank();
+    if (!pageDetails.description.trim() && brief.trim()) {
+      pageDetails = {
+        ...pageDetails,
+        title: title.trim() || pageDetails.title,
+        description: brief.trim(),
+      };
+      savePageDetails(pageDetails);
     }
 
     if (selection.platforms.length === 0) {
@@ -83,6 +92,23 @@ function AdsContent({ initialSelection }: { initialSelection: PlatformSelection 
             We&apos;ll generate editable ad variants for each selection.
           </p>
         </div>
+        {!loadPageDetails()?.description && (
+          <div className="mb-6 space-y-3 rounded-lg border border-zinc-200 p-4 dark:border-zinc-800">
+            <p className="text-sm font-medium">What are you advertising?</p>
+            <Input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Product or brand name"
+            />
+            <textarea
+              value={brief}
+              onChange={(e) => setBrief(e.target.value)}
+              rows={3}
+              placeholder="Describe your offer, audience, and tone..."
+              className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm dark:border-zinc-700 dark:bg-zinc-900"
+            />
+          </div>
+        )}
         <PlatformSelector value={selection} onChange={setSelection} />
         {error && (
           <p className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700 dark:bg-red-950 dark:text-red-300">
@@ -110,7 +136,6 @@ function AdsContent({ initialSelection }: { initialSelection: PlatformSelection 
 }
 
 export default function AdsPage() {
-  const router = useRouter();
   const mounted = useClientMounted();
 
   if (!mounted) {
@@ -121,20 +146,14 @@ export default function AdsPage() {
     );
   }
 
-  if (!loadPageDetails()) {
-    router.replace("/");
-    return (
-      <main className="flex flex-1 items-center justify-center">
-        <p className="text-sm text-zinc-500">Redirecting…</p>
-      </main>
-    );
-  }
+  const details = loadPageDetailsOrBlank();
+  if (!loadPageDetails()) savePageDetails(details);
 
   const initialSelection = loadSelection() ?? defaultSelection;
 
   return (
     <main className="flex flex-1 flex-col">
-      <SiteHeader step="Step 2 · Choose platforms" backHref="/preview" />
+      <SiteHeader step="Ad copy" backHref="/" />
       <AdsContent initialSelection={initialSelection} />
     </main>
   );

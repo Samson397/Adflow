@@ -1,6 +1,7 @@
 import type { AdVariant } from "@/lib/ads/types";
 import type { PageDetails } from "@/lib/extract/types";
 import type { GenerationJob } from "@/lib/aivideoapi/types";
+import { createBlankPageDetails } from "@/lib/pageDetails/factory";
 
 const PAGE_DETAILS_KEY = "fuse:pageDetails";
 const AD_VARIANTS_KEY = "fuse:adVariants";
@@ -71,6 +72,10 @@ export function loadCreativeJobs(): GenerationJob[] {
   } catch {
     return [];
   }
+}
+
+export function loadPageDetailsOrBlank(): PageDetails {
+  return loadPageDetails() ?? createBlankPageDetails();
 }
 
 export function clearFuseSession(): void {

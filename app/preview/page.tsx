@@ -93,7 +93,7 @@ export default function PreviewPage() {
 
   return (
     <main className="flex flex-1 flex-col">
-      <SiteHeader step="Step 1 · Review details" backHref="/" />
+      <SiteHeader step="Step 1 · Review" backHref="/" />
       <PreviewContent initial={stored} />
     </main>
   );
